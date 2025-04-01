@@ -7,11 +7,11 @@ import dayjs from 'lib/date/dayjs';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import { HOMEPAGE_STATS } from 'stubs/stats';
 import Skeleton from 'ui/shared/chakra/Skeleton';
-import GasInfoTooltip from 'ui/shared/gas/GasInfoTooltip';
-import GasPrice from 'ui/shared/gas/GasPrice';
-import TextSeparator from 'ui/shared/TextSeparator';
+// import GasInfoTooltip from 'ui/shared/gas/GasInfoTooltip';
+// import GasPrice from 'ui/shared/gas/GasPrice';
+// import TextSeparator from 'ui/shared/TextSeparator';
 
-import GetGasButton from './GetGasButton';
+// import GetGasButton from './GetGasButton';
 
 const TopBarStats = () => {
   const isMobile = useIsMobile();
@@ -76,20 +76,6 @@ const TopBarStats = () => {
             <span>${ Number(data.secondary_coin_price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 }) }</span>
           </Skeleton>
         </Flex>
-      ) }
-      { data?.coin_price && config.features.gasTracker.isEnabled && <TextSeparator color="divider"/> }
-      { data?.gas_prices && data.gas_prices.average !== null && config.features.gasTracker.isEnabled && (
-        <>
-          <Skeleton isLoaded={ !isPlaceholderData }>
-            <chakra.span color="text_secondary">Gas </chakra.span>
-            <GasInfoTooltip data={ data } dataUpdatedAt={ dataUpdatedAt } placement={ !data?.coin_price ? 'bottom-start' : undefined }>
-              <Link>
-                <GasPrice data={ data.gas_prices.average }/>
-              </Link>
-            </GasInfoTooltip>
-          </Skeleton>
-          { !isPlaceholderData && <GetGasButton/> }
-        </>
       ) }
     </Flex>
   );

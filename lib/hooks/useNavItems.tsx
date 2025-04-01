@@ -57,13 +57,7 @@ export default function useNavItems(): ReturnType {
       isActive: pathname === '/ops' || pathname === '/op/[hash]',
     } : null;
 
-    const verifiedContracts: NavItem | null =
-     {
-       text: 'Verified contracts',
-       nextRoute: { pathname: '/verified-contracts' as const },
-       icon: 'verified',
-       isActive: pathname === '/verified-contracts',
-     };
+    const verifiedContracts: NavItem | null = null;
     const ensLookup = config.features.nameService.isEnabled ? {
       text: 'Name services lookup',
       nextRoute: { pathname: '/name-domains' as const },
@@ -202,34 +196,7 @@ export default function useNavItems(): ReturnType {
       ].filter(Boolean);
     }
 
-    const tokensNavItems = [
-      {
-        text: 'Tokens',
-        nextRoute: { pathname: '/tokens' as const },
-        icon: 'token',
-        isActive: pathname === '/tokens' || pathname.startsWith('/token/'),
-      },
-      {
-        text: 'Token transfers',
-        nextRoute: { pathname: '/token-transfers' as const },
-        icon: 'token-transfers',
-        isActive: pathname === '/token-transfers',
-      },
-      config.features.pools.isEnabled && {
-        text: 'DEX tracker',
-        nextRoute: { pathname: '/pools' as const },
-        icon: 'dex-tracker',
-        isActive: pathname === '/pools' || pathname.startsWith('/pool/'),
-      },
-    ].filter(Boolean);
-
     const apiNavItems: Array<NavItem> = [
-      config.features.restApiDocs.isEnabled ? {
-        text: 'REST API',
-        nextRoute: { pathname: '/api-docs' as const },
-        icon: 'restAPI',
-        isActive: pathname === '/api-docs',
-      } : null,
       config.features.graphqlApiDocs.isEnabled ? {
         text: 'GraphQL',
         nextRoute: { pathname: '/graphiql' as const },
@@ -248,42 +215,12 @@ export default function useNavItems(): ReturnType {
       },
     ].filter(Boolean);
 
-    const otherNavItems: Array<NavItem> | Array<Array<NavItem>> = [
-      {
-        text: 'Verify contract',
-        nextRoute: { pathname: '/contract-verification' as const },
-        isActive: pathname.startsWith('/contract-verification'),
-      },
-      config.features.gasTracker.isEnabled && {
-        text: 'Gas tracker',
-        nextRoute: { pathname: '/gas-tracker' as const },
-        isActive: pathname.startsWith('/gas-tracker'),
-      },
-      config.features.publicTagsSubmission.isEnabled && {
-        text: 'Submit public tag',
-        nextRoute: { pathname: '/public-tags/submit' as const },
-        isActive: pathname.startsWith('/public-tags/submit'),
-      },
-      rollupFeature.isEnabled && rollupFeature.type === 'arbitrum' && {
-        text: 'Txn withdrawals',
-        nextRoute: { pathname: '/txn-withdrawals' as const },
-        isActive: pathname.startsWith('/txn-withdrawals'),
-      },
-      ...config.UI.navigation.otherLinks,
-    ].filter(Boolean);
-
     const mainNavItems: ReturnType['mainNavItems'] = [
       {
         text: 'Blockchain',
         icon: 'globe-b',
         isActive: blockchainNavItems.flat().some(item => isInternalItem(item) && item.isActive),
         subItems: blockchainNavItems,
-      },
-      {
-        text: 'Tokens',
-        icon: 'token',
-        isActive: tokensNavItems.flat().some(item => isInternalItem(item) && item.isActive),
-        subItems: tokensNavItems,
       },
       config.features.marketplace.isEnabled ? {
         text: 'DApps',
@@ -302,12 +239,6 @@ export default function useNavItems(): ReturnType {
         icon: 'restAPI',
         isActive: apiNavItems.some(item => isInternalItem(item) && item.isActive),
         subItems: apiNavItems,
-      },
-      {
-        text: 'Other',
-        icon: 'gear',
-        isActive: otherNavItems.flat().some(item => isInternalItem(item) && item.isActive),
-        subItems: otherNavItems,
       },
     ].filter(Boolean);
 
